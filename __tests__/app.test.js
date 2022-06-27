@@ -30,6 +30,13 @@ describe('gitty routes', () => {
       exp: expect.any(Number),
     });
   });
+  it('should logout a user', async () => {
+    const agent = request.agent(app);
+    await agent.get('/api/v1/github/callback?code=42');
+
+    const res = await agent.delete('/api/v1/github/sessions');
+    expect(res.status).toEqual(200);
+  });
   afterAll(() => {
     pool.end();
   });
