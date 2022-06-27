@@ -3,12 +3,13 @@ const setup = require('../data/setup');
 const request = require('supertest');
 const app = require('../lib/app');
 
-describe('backend-express-template routes', () => {
+describe('gitty routes', () => {
   beforeEach(() => {
     return setup(pool);
   });
-  it('example test - delete me!', () => {
-    expect(1).toEqual(1);
+  it.skip('should redirect to the github oauth page upon login', async () => {
+    const res = await request(app).get('/api/v1/github/login');
+    expect(res.header.location).toMatch();
   });
   afterAll(() => {
     pool.end();
